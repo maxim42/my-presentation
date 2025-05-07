@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обзор моделей генерации изображений</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            height: 100%;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+        .model-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .model-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .model-header {
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+        }
+        .model-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        .model-tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-right: 4px;
+            display: inline-block;
+        }
+        .rating-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        .rating-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            border-radius: 3px;
+        }
+        .radar-chart-container {
+            width: 100%;
+            height: 300px;
+            position: relative;
+        }
+        .image-placeholder {
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%);
+            background-size: 20px 20px;
+            border: 2px dashed rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-10 flex flex-col">
+        <div class="grid-pattern"></div>
+        
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-4xl font-bold">Обзор <span class="gradient-text">моделей</span> генерации изображений</h2>
+            <div class="h-1 w-36 bg-gradient-to-r from-blue-400 to-purple-500 mt-3 rounded-full"></div>
+        </div>
+        
+        <div class="grid grid-cols-3 gap-6 flex-grow">
+            <!-- Left Column - Models Overview -->
+            <div class="col-span-2 space-y-4">
+                <!-- Stable Diffusion -->
+                <div class="model-card">
+                    <div class="model-header bg-gradient-to-r from-blue-600 to-blue-900">
+                        <div class="model-icon bg-blue-800 text-blue-200">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-white">Stable Diffusion</h3>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="model-tag bg-blue-800 text-blue-200">Open Source</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="grid grid-cols-5 gap-3">
+                            <div class="col-span-2">
+                                <h4 class="text-sm text-blue-300 mb-2">Преимущества</h4>
+                                <ul class="text-xs text-gray-300 space-y-1">
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-blue-400 mr-1"></i> Высокая скорость генерации</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-blue-400 mr-1"></i> Гибкая настройка параметров</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-blue-400 mr-1"></i> Возможность локального запуска</li>
+                                </ul>
+                            </div>
+                            <div class="col-span-2">
+                                <h4 class="text-sm text-blue-300 mb-2">Идеальные кейсы</h4>
+                                <ul class="text-xs text-gray-300 space-y-1">
+                                    <li class="flex items-center"><i class="fas fa-angle-right text-blue-400 mr-1"></i> Быстрые превью</li>
+                                    <li class="flex items-center"><i class="fas fa-angle-right text-blue-400 mr-1"></i> Массовые batch-запросы</li>
+                                    <li class="flex items-center"><i class="fas fa-angle-right text-blue-400 mr-1"></i> Художественные стили</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400 mb-1">Скорость</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-blue-500" style="width: 90%"></div>
+                                </div>
+                                
+                                <div class="text-xs text-gray-400 mb-1 mt-2">Качество</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-blue-500" style="width: 70%"></div>
+                                </div>
+                                
+                                <div class="text-xs text-gray-400 mb-1 mt-2">Точность текста</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-blue-500" style="width: 30%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ControlNet -->
+                <div class="model-card">
+                    <div class="model-header bg-gradient-to-r from-green-600 to-green-900">
+                        <div class="model-icon bg-green-800 text-green-200">
+                            <i class="fas fa-crop-alt"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-white">ControlNet</h3>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="model-tag bg-green-800 text-green-200">Точность композиции</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="grid grid-cols-5 gap-3">
+                            <div class="col-span-2">
+                                <h4 class="text-sm text-green-300 mb-2">Преимущества</h4>
+                                <ul class="text-xs text-gray-300 space-y-1">
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-1"></i> Точный контроль композиции</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-1"></i> Работа с референсами</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-1"></i> Поддержка скетчей и набросков</li>
+                                </ul>
+                            </div>
+                            <div class="col-span-2">
+                                <h4 class="text-sm text-green-300 mb-2">Идеальные кейсы</h4>
+                                <ul class="text-xs text-gray-300 space-y-1">
+                                    <li class="flex items-center"><i class="fas fa-angle-right text-green-400 mr-1"></i> Макеты сайтов</li>
+                                    <li class="flex items-center"><i class="fas fa-angle-right text-green-400 mr-1"></i> Интерьерный дизайн</li>
+                                    <li class="flex items-center"><i class="fas fa-angle-right text-green-400 mr-1"></i> Редизайн по скетчу</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400 mb-1">Скорость</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-green-500" style="width: 60%"></div>
+                                </div>
+                                
+                                <div class="text-xs text-gray-400 mb-1 mt-2">Качество</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-green-500" style="width: 75%"></div>
+                                </div>
+                                
+                                <div class="text-xs text-gray-400 mb-1 mt-2">Точность текста</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-green-500" style="width: 35%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- DreamBooth -->
+                <div class="model-card">
+                    <div class="model-header bg-gradient-to-r from-purple-600 to-purple-900">
+                        <div class="model-icon bg-purple-800 text-purple-200">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-white">DreamBooth</h3>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="model-tag bg-purple-800 text-purple-200">Персонализация</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="grid grid-cols-5 gap-3">
+                            <div class="col-span-2">
+                                <h4 class="text-sm text-purple-300 mb-2">Преимущества</h4>
+                                <ul class="text-xs text-gray-300 space-y-1">
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-purple-400 mr-1"></i> Обучение на пользовательском контенте</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-purple-400 mr-1"></i> Стилистическая согласованность</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-purple-400 mr-1"></i> Брендированный контент</li>
+                                </ul>
+                            </div>
+                            <div class="col-span-2">
+                                <h4 class="text-sm text-purple-300 mb-2">Идеальные кейсы</h4>
+                                <ul class="text-xs text-gray-300 space-y-1">
+                                    <li class="flex items-center"><i class="fas fa-angle-right text-purple-400 mr-1"></i> Брендовые аватары</li>
+                                    <li class="flex items-center"><i class="fas fa-angle-right text-purple-400 mr-1"></i> Персонализированные персонажи</li>
+                                    <li class="flex items-center"><i class="fas fa-angle-right text-purple-400 mr-1"></i> Дизайн упаковки</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400 mb-1">Скорость</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-purple-500" style="width: 40%"></div>
+                                </div>
+                                
+                                <div class="text-xs text-gray-400 mb-1 mt-2">Качество</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-purple-500" style="width: 85%"></div>
+                                </div>
+                                
+                                <div class="text-xs text-gray-400 mb-1 mt-2">Точность текста</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-purple-500" style="width: 45%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column - More Models and Chart -->
+            <div class="space-y-4">
+                <!-- GPT-4o -->
+                <div class="model-card">
+                    <div class="model-header bg-gradient-to-r from-indigo-600 to-indigo-900">
+                        <div class="model-icon bg-indigo-800 text-indigo-200">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-white">GPT-4o</h3>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="model-tag bg-indigo-800 text-indigo-200">Multimodal</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-3">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="col-span-2 space-y-2">
+                                <h4 class="text-sm text-indigo-300 mb-1">Преимущества</h4>
+                                <ul class="text-xs text-gray-300">
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-indigo-400 mr-1"></i> Точное текстовое отображение</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-indigo-400 mr-1"></i> Мультимодальный контекст</li>
+                                </ul>
+                                
+                                <h4 class="text-sm text-indigo-300 mb-1 mt-3">Идеальные кейсы</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs bg-indigo-900 bg-opacity-50 py-1 px-2 rounded text-indigo-200">Инфографика</span>
+                                    <span class="text-xs bg-indigo-900 bg-opacity-50 py-1 px-2 rounded text-indigo-200">Обложки</span>
+                                    <span class="text-xs bg-indigo-900 bg-opacity-50 py-1 px-2 rounded text-indigo-200">Макеты сайтов</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400 mb-1">Скорость</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-indigo-500" style="width: 65%"></div>
+                                </div>
+                                
+                                <div class="text-xs text-gray-400 mb-1 mt-2">Качество</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-indigo-500" style="width: 80%"></div>
+                                </div>
+                                
+                                <div class="text-xs text-gray-400 mb-1 mt-2">Точность текста</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-indigo-500" style="width: 95%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gemini -->
+                <div class="model-card">
+                    <div class="model-header bg-gradient-to-r from-teal-600 to-teal-900">
+                        <div class="model-icon bg-teal-800 text-teal-200">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-white">Gemini</h3>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="model-tag bg-teal-800 text-teal-200">Google AI</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-3">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="col-span-2 space-y-2">
+                                <h4 class="text-sm text-teal-300 mb-1">Преимущества</h4>
+                                <ul class="text-xs text-gray-300">
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-teal-400 mr-1"></i> Контекстный интеллект</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-teal-400 mr-1"></i> Диалоговое редактирование</li>
+                                </ul>
+                                
+                                <h4 class="text-sm text-teal-300 mb-1 mt-3">Идеальные кейсы</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs bg-teal-900 bg-opacity-50 py-1 px-2 rounded text-teal-200">Иллюстрации</span>
+                                    <span class="text-xs bg-teal-900 bg-opacity-50 py-1 px-2 rounded text-teal-200">Диалоговая генерация</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400 mb-1">Скорость</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-teal-500" style="width: 70%"></div>
+                                </div>
+                                
+                                <div class="text-xs text-gray-400 mb-1 mt-2">Качество</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-teal-500" style="width: 85%"></div>
+                                </div>
+                                
+                                <div class="text-xs text-gray-400 mb-1 mt-2">Точность текста</div>
+                                <div class="rating-bar">
+                                    <div class="rating-fill bg-teal-500" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Radar Chart -->
+                <div class="radar-chart-container">
+                    <canvas id="modelComparisonChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom - Image Examples -->
+        <div class="mt-4">
+            <div class="image-placeholder h-32 rounded-lg flex items-center justify-center">
+                <i class="fas fa-images text-2xl mb-2 text-gray-400"></i>
+                <p class="text-sm text-gray-400">Примеры генерации одного и того же объекта разными моделями</p>
+                <p class="text-xs text-gray-500 mt-1">(Сравнение качества и стиля генерации)</p>
+            </div>
+        </div>
+        
+        <div class="slide-number">6</div>
+    </div>
+
+    <script>
+        // Radar Chart Data
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('modelComparisonChart').getContext('2d');
+            
+            const chartData = {
+                labels: ['Скорость', 'Качество', 'Текст', 'Композиция', 'Стиль'],
+                datasets: [
+                    {
+                        label: 'Stable Diffusion',
+                        data: [9, 7, 3, 5, 8],
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: 'rgba(59, 130, 246, 0.8)',
+                        pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(59, 130, 246, 1)'
+                    },
+                    {
+                        label: 'GPT-4o',
+                        data: [6, 8, 9.5, 7, 7],
+                        backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                        borderColor: 'rgba(79, 70, 229, 0.8)',
+                        pointBackgroundColor: 'rgba(79, 70, 229, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(79, 70, 229, 1)'
+                    },
+                    {
+                        label: 'Gemini',
+                        data: [7, 8.5, 8, 7.5, 8],
+                        backgroundColor: 'rgba(20, 184, 166, 0.2)',
+                        borderColor: 'rgba(20, 184, 166, 0.8)',
+                        pointBackgroundColor: 'rgba(20, 184, 166, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(20, 184, 166, 1)'
+                    }
+                ]
+            };
+            
+            new Chart(ctx, {
+                type: 'radar',
+                data: chartData,
+                options: {
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(248, 250, 252, 0.8)',
+                                font: {
+                                    size: 10
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(248, 250, 252, 0.2)'
+                            },
+                            grid: {
+                                color: 'rgba(248, 250, 252, 0.2)'
+                            },
+                            pointLabels: {
+                                color: 'rgba(248, 250, 252, 0.8)',
+                                font: {
+                                    size: 10
+                                }
+                            },
+                            ticks: {
+                                color: 'rgba(248, 250, 252, 0.6)',
+                                backdropColor: 'transparent'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10
+                        }
+                    },
+                    maintainAspectRatio: false
+                }
+            });
+        });
+    </script>
+</body>
+</html>

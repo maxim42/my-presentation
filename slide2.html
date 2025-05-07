@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цели урока</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+        .goal-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .goal-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+        .goal-icon {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-12 flex flex-col">
+        <div class="grid-pattern"></div>
+        
+        <!-- Header -->
+        <div class="mb-8">
+            <h2 class="text-4xl font-bold"><span class="gradient-text">Цели</span> урока</h2>
+            <div class="h-1 w-24 bg-gradient-to-r from-blue-400 to-purple-500 mt-3 rounded-full"></div>
+        </div>
+        
+        <!-- Goals Grid -->
+        <div class="grid grid-cols-2 gap-8 mt-4">
+            <!-- Goal 1 -->
+            <div class="goal-item bg-gray-800 bg-opacity-50 p-6 rounded-xl border border-gray-700 flex items-start">
+                <div class="goal-icon mr-6">
+                    <i class="fas fa-brain text-2xl text-white"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-300 mb-2">Прокачка prompt-инжиниринга</h3>
+                    <p class="text-gray-300">Освоение техник создания эффективных промптов и изучение тонких приёмов для получения желаемых результатов</p>
+                </div>
+            </div>
+            
+            <!-- Goal 2 -->
+            <div class="goal-item bg-gray-800 bg-opacity-50 p-6 rounded-xl border border-gray-700 flex items-start">
+                <div class="goal-icon mr-6">
+                    <i class="fas fa-cubes text-2xl text-white"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-300 mb-2">Сравнение моделей генерации</h3>
+                    <p class="text-gray-300">Обзор возможностей различных моделей: Stable Diffusion, DreamBooth, ControlNet, GPT-4o и Gemini</p>
+                </div>
+            </div>
+            
+            <!-- Goal 3 -->
+            <div class="goal-item bg-gray-800 bg-opacity-50 p-6 rounded-xl border border-gray-700 flex items-start">
+                <div class="goal-icon mr-6">
+                    <i class="fas fa-wand-magic-sparkles text-2xl text-white"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-300 mb-2">Методы пост-обработки</h3>
+                    <p class="text-gray-300">Изучение подходов к улучшению качества: upscaling, вариации изображений, применение negative-prompts</p>
+                </div>
+            </div>
+            
+            <!-- Goal 4 -->
+            <div class="goal-item bg-gray-800 bg-opacity-50 p-6 rounded-xl border border-gray-700 flex items-start">
+                <div class="goal-icon mr-6">
+                    <i class="fas fa-laptop-code text-2xl text-white"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-300 mb-2">Практические кейсы</h3>
+                    <p class="text-gray-300">Создание инфографики, обложек YouTube, макетов сайтов и карточек для маркетплейсов</p>
+                </div>
+            </div>
+            
+            <!-- Goal 5 -->
+            <div class="goal-item bg-gray-800 bg-opacity-50 p-6 rounded-xl border border-gray-700 flex items-start col-span-2 mx-auto" style="max-width: 550px">
+                <div class="goal-icon mr-6">
+                    <i class="fab fa-telegram text-2xl text-white"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-300 mb-2">Telegram-бот для генерации</h3>
+                    <p class="text-gray-300">Знакомство с возможностями Telegram-бота для генерации изображений с оплатой по количеству</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-number">2</div>
+    </div>
+</body>
+</html>

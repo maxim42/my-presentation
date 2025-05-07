@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Специфика русскоязычного текста</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            height: 100%;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .image-placeholder {
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%);
+            background-size: 20px 20px;
+            border: 2px dashed rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .letter-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            margin: 0 2px;
+            font-weight: bold;
+        }
+        .letter-correct {
+            background-color: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+            color: #4ade80;
+        }
+        .letter-problem {
+            background-color: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            color: #f87171;
+            position: relative;
+        }
+        .letter-problem::after {
+            content: '×';
+            position: absolute;
+            top: -10px;
+            right: -5px;
+            color: #ef4444;
+            font-size: 14px;
+        }
+        .compare-table td {
+            padding: 8px 12px;
+        }
+        .compare-row {
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        .compare-row:last-child {
+            border-bottom: none;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-12 flex flex-col">
+        <div class="grid-pattern"></div>
+        
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-4xl font-bold">Специфика <span class="gradient-text">русскоязычного текста</span></h2>
+            <div class="h-1 w-36 bg-gradient-to-r from-blue-400 to-purple-500 mt-3 rounded-full"></div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-8 mt-2">
+            <!-- Left Column -->
+            <div class="space-y-6">
+                <div class="card p-5">
+                    <h3 class="text-xl font-semibold text-blue-300 flex items-center mb-4">
+                        <i class="fas fa-exclamation-triangle mr-3 text-yellow-400"></i>
+                        Проблемы с кириллицей
+                    </h3>
+                    
+                    <div class="space-y-4 text-gray-300">
+                        <div class="flex items-start">
+                            <div class="rounded-full bg-red-900 w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-font text-red-300"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">Искажение букв</h4>
+                                <p class="text-sm mt-1">Модели часто пропускают или искажают буквы с диакритикой (й, ё) и похожие по написанию символы</p>
+                                <div class="mt-2 flex">
+                                    <div class="letter-box letter-correct">т</div>
+                                    <div class="letter-box letter-correct">р</div>
+                                    <div class="letter-box letter-correct">а</div>
+                                    <div class="letter-box letter-correct">с</div>
+                                    <div class="letter-box letter-correct">о</div>
+                                    <div class="letter-box letter-correct">в</div>
+                                    <div class="letter-box letter-correct">н</div>
+                                    <div class="letter-box letter-problem">ъ</div>
+                                    <div class="letter-box letter-problem">й</div>
+                                    <div class="letter-box letter-problem">ю</div>
+                                    <div class="letter-box letter-problem">ц</div>
+                                    <div class="letter-box letter-problem">ы</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="rounded-full bg-red-900 w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-text-height text-red-300"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">Проблемы с шрифтами</h4>
+                                <p class="text-sm mt-1">Модели выбирают неподходящие шрифты, которые плохо поддерживают кириллицу или не содержат все символы</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="rounded-full bg-red-900 w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-align-left text-red-300"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold">Нарушение композиции</h4>
+                                <p class="text-sm mt-1">Из-за большей средней длины русских слов часто нарушается баланс в макетах и инфографике</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-placeholder h-44 rounded-lg">
+                    <i class="fas fa-font text-3xl mb-2 text-gray-400"></i>
+                    <p class="text-sm text-gray-400">Примеры проблем с русским текстом в генерации</p>
+                    <p class="text-xs text-gray-500 mt-1">(Сравнение искажённого и корректного текста)</p>
+                </div>
+            </div>
+            
+            <!-- Right Column -->
+            <div class="space-y-6">
+                <div class="card p-5">
+                    <h3 class="text-xl font-semibold text-blue-300 flex items-center mb-4">
+                        <i class="fas fa-lightbulb mr-3 text-yellow-400"></i>
+                        Решения и обходные пути
+                    </h3>
+                    
+                    <div class="space-y-5 text-gray-300">
+                        <div class="bg-slate-800 bg-opacity-70 p-3 rounded-lg">
+                            <h4 class="text-white font-semibold flex items-center mb-2">
+                                <span class="flex items-center justify-center bg-green-900 text-green-400 w-6 h-6 rounded-full text-xs mr-2">1</span>
+                                Генерация на английском с последующим переводом
+                            </h4>
+                            <p class="text-sm ml-8">Создавайте макеты на английском языке, а затем заменяйте текст на русский в графическом редакторе</p>
+                        </div>
+                        
+                        <div class="bg-slate-800 bg-opacity-70 p-3 rounded-lg">
+                            <h4 class="text-white font-semibold flex items-center mb-2">
+                                <span class="flex items-center justify-center bg-green-900 text-green-400 w-6 h-6 rounded-full text-xs mr-2">2</span>
+                                Конкретные указания по исправлению текста
+                            </h4>
+                            <p class="text-sm ml-8">Используйте команды формата "исправь опечатку: 'X' вместо 'Y'; остальное оставить без изменений"</p>
+                        </div>
+                        
+                        <div class="bg-slate-800 bg-opacity-70 p-3 rounded-lg">
+                            <h4 class="text-white font-semibold flex items-center mb-2">
+                                <span class="flex items-center justify-center bg-green-900 text-green-400 w-6 h-6 rounded-full text-xs mr-2">3</span>
+                                Использование современных моделей
+                            </h4>
+                            <p class="text-sm ml-8">GPT-4o и Gemini 2.0 значительно улучшили поддержку кириллицы по сравнению с предыдущими версиями</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card p-5">
+                    <h3 class="text-lg font-semibold text-blue-300 mb-3">Сравнение результатов генерации</h3>
+                    <table class="w-full text-sm compare-table">
+                        <tbody class="text-gray-300">
+                            <tr class="compare-row">
+                                <td class="w-1/4 font-semibold text-white">Модель</td>
+                                <td class="w-1/4 font-semibold text-white">Русский текст</td>
+                                <td class="w-1/4 font-semibold text-white">Английский текст</td>
+                            </tr>
+                            <tr class="compare-row">
+                                <td>Stable Diffusion</td>
+                                <td>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                                        <span>Плохо</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-check-circle text-yellow-500 mr-2"></i>
+                                        <span>Средне</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="compare-row">
+                                <td>ControlNet</td>
+                                <td>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                                        <span>Плохо</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                        <span>Хорошо</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="compare-row">
+                                <td>GPT-4o (2023)</td>
+                                <td>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-check-circle text-yellow-500 mr-2"></i>
+                                        <span>Средне</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                        <span>Хорошо</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>GPT-4o (март 2024)</td>
+                                <td>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                        <span>Хорошо</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                        <span>Отлично</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-number">5</div>
+    </div>
+</body>
+</html>

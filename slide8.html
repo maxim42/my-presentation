@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практические кейсы</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            height: 100%;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+        .case-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .case-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .case-header {
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            padding: 8px 12px;
+        }
+        .prompt-text {
+            font-family: 'Courier New', monospace;
+            background-color: rgba(15, 23, 42, 0.7);
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        .image-placeholder {
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%);
+            background-size: 20px 20px;
+            border: 2px dashed rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-button {
+            padding: 8px 16px;
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background: rgba(30, 41, 59, 0.8);
+            border-bottom: 2px solid #3b82f6;
+        }
+        .tab-button:not(.active) {
+            background: rgba(30, 41, 59, 0.4);
+            border-bottom: 2px solid transparent;
+        }
+        .tab-button:hover:not(.active) {
+            background: rgba(30, 41, 59, 0.6);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            opacity: 0.5;
+        }
+        .feature-tag {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 4px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-8 flex flex-col">
+        <div class="grid-pattern"></div>
+        
+        <!-- Header -->
+        <div class="mb-4">
+            <h2 class="text-4xl font-bold">Практические <span class="gradient-text">кейсы</span></h2>
+            <div class="h-1 w-36 bg-gradient-to-r from-blue-400 to-purple-500 mt-3 rounded-full"></div>
+        </div>
+        
+        <!-- Tabs Navigation -->
+        <div class="flex space-x-2 mb-4">
+            <button class="tab-button active" onclick="showTab('infographics')">
+                <i class="fas fa-chart-pie mr-2"></i>Инфографика
+            </button>
+            <button class="tab-button" onclick="showTab('youtube')">
+                <i class="fab fa-youtube mr-2"></i>Обложки YouTube
+            </button>
+            <button class="tab-button" onclick="showTab('marketplace')">
+                <i class="fas fa-shopping-cart mr-2"></i>Карточки товаров
+            </button>
+            <button class="tab-button" onclick="showTab('websites')">
+                <i class="fas fa-laptop-code mr-2"></i>Макеты сайтов
+            </button>
+            <button class="tab-button" onclick="showTab('interior')">
+                <i class="fas fa-couch mr-2"></i>Интерьер
+            </button>
+        </div>
+        
+        <!-- Tabs Content -->
+        <div class="flex-grow">
+            <!-- Infographics Tab -->
+            <div id="infographics" class="tab-content active">
+                <div class="grid grid-cols-5 gap-4 h-full">
+                    <!-- Left Panel - Description -->
+                    <div class="col-span-2">
+                        <div class="case-card p-4 h-full flex flex-col">
+                            <h3 class="text-2xl font-semibold text-blue-300 mb-3">
+                                <i class="fas fa-chart-pie mr-2"></i> Инфографика
+                            </h3>
+                            
+                            <div class="space-y-4 flex-grow">
+                                <p class="text-gray-300 text-sm">
+                                    Создание визуальных отчетов, диаграмм и графиков на основе числовых данных или текстовой информации.
+                                </p>
+                                
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Идеальные модели:</h4>
+                                    <div class="flex flex-wrap">
+                                        <span class="feature-tag text-indigo-300 border border-indigo-800 mr-2">GPT-4o</span>
+                                        <span class="feature-tag text-teal-300 border border-teal-800">Gemini</span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Эффективные промпты:</h4>
+                                    <div class="prompt-text text-green-300">
+                                        Создай инфографику "Навыки будущего 2030" в виде диаграммы. Данные: Программирование - 35%, Коммуникация - 25%, Адаптивность - 20%, Креативность - 15%, Критическое мышление - 5%. Используй минималистичный стиль с яркими акцентами.
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Преимущества:</h4>
+                                    <ul class="text-sm text-gray-300 list-disc list-inside">
+                                        <li>Быстрая визуализация любых данных</li>
+                                        <li>Не требуется навыков работы с графическими редакторами</li>
+                                        <li>Уникальный дизайн без шаблонности</li>
+                                        <li>Возможность быстрого перебора стилей</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="text-xs text-gray-400 mt-3">
+                                <i class="fas fa-info-circle mr-1 text-blue-400"></i>
+                                GPT-4o и Gemini лучше других моделей справляются с пропорциональным отображением данных
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Panel - Examples -->
+                    <div class="col-span-3">
+                        <div class="grid grid-rows-2 gap-4 h-full">
+                            <!-- Example 1 -->
+                            <div class="case-card overflow-hidden">
+                                <div class="case-header bg-gradient-to-r from-blue-800 to-indigo-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">Столбчатая диаграмма</h4>
+                                    <span class="text-xs bg-blue-700 px-2 py-1 rounded">GPT-4o</span>
+                                </div>
+                                <div class="p-3">
+                                    <div class="image-placeholder h-48 rounded-md">
+                                        <i class="fas fa-chart-bar text-2xl mb-1 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Столбчатая диаграмма "Навыки будущего 2030"</p>
+                                        <p class="text-xs text-gray-500">(Визуализация процентного распределения навыков)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Example 2 -->
+                            <div class="case-card overflow-hidden">
+                                <div class="case-header bg-gradient-to-r from-purple-800 to-indigo-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">PDF-документ в инфографику</h4>
+                                    <span class="text-xs bg-purple-700 px-2 py-1 rounded">Gemini</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 p-3">
+                                    <div class="prompt-text text-purple-200 text-xs h-48 overflow-auto">
+                                        Исходные данные:<br>
+                                        Согласно исследованию Future Skills 2030:<br><br>
+                                        1. Технические навыки будут составлять 45% от требований работодателей.<br>
+                                        2. Soft skills оцениваются в 30% от общей ценности сотрудника.<br>
+                                        3. Адаптивность к изменениям - критический фактор для 85% руководителей.<br>
+                                        4. Креативное мышление требуется в 62% новых профессий.<br>
+                                        5. Работа с большими данными - необходимый навык для 72% специальностей.
+                                    </div>
+                                    <div class="image-placeholder h-48 rounded-md">
+                                        <i class="fas fa-file-alt text-2xl mb-1 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Инфографика по данным отчёта</p>
+                                        <p class="text-xs text-gray-500">(Визуализация текстовых данных)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- YouTube Covers Tab -->
+            <div id="youtube" class="tab-content">
+                <div class="grid grid-cols-5 gap-4 h-full">
+                    <!-- Left Panel - Description -->
+                    <div class="col-span-2">
+                        <div class="case-card p-4 h-full flex flex-col">
+                            <h3 class="text-2xl font-semibold text-red-300 mb-3">
+                                <i class="fab fa-youtube mr-2"></i> Обложки YouTube
+                            </h3>
+                            
+                            <div class="space-y-4 flex-grow">
+                                <p class="text-gray-300 text-sm">
+                                    Создание привлекательных и кликабельных обложек для видео на YouTube с учетом специфики канала и тематики.
+                                </p>
+                                
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Идеальные модели:</h4>
+                                    <div class="flex flex-wrap">
+                                        <span class="feature-tag text-red-300 border border-red-800 mr-2">Stable Diffusion</span>
+                                        <span class="feature-tag text-indigo-300 border border-indigo-800">GPT-4o</span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Эффективные промпты:</h4>
+                                    <div class="prompt-text text-red-300">
+                                        YouTube-обложка 1920×1080, "1000 ПЕЛЬМЕНЕЙ ЗА 1 ЧАС", крупный текст в центре, шоковое выражение лица молодого мужчины на фоне горы из пельменей, стиль как у MrBeast, яркие контрастные цвета, 4K
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Преимущества:</h4>
+                                    <ul class="text-sm text-gray-300 list-disc list-inside">
+                                        <li>CTR-оптимизированные обложки в трендовых стилях</li>
+                                        <li>Генерация десятков вариантов для тестирования</li>
+                                        <li>Эмоциональные и привлекающие внимание образы</li>
+                                        <li>Быстрое создание серии обложек в едином стиле</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="text-xs text-gray-400 mt-3">
+                                <i class="fas fa-info-circle mr-1 text-red-400"></i>
+                                Пропорции 16:9 (1920×1080px) дают наилучший результат для YouTube
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Panel - Examples -->
+                    <div class="col-span-3">
+                        <div class="grid grid-cols-2 gap-4 h-full">
+                            <!-- Example 1 -->
+                            <div class="case-card overflow-hidden">
+                                <div class="case-header bg-gradient-to-r from-red-800 to-orange-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">Обложка в стиле MrBeast</h4>
+                                    <span class="text-xs bg-red-700 px-2 py-1 rounded">Stable Diffusion</span>
+                                </div>
+                                <div class="p-3">
+                                    <div class="image-placeholder h-36 rounded-md">
+                                        <i class="fas fa-play-circle text-2xl mb-1 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Обложка "1000 пельменей"</p>
+                                        <p class="text-xs text-gray-500">(Шокирующий контент в стиле MrBeast)</p>
+                                    </div>
+                                    <div class="mt-3 flex justify-between">
+                                        <div class="text-xs text-gray-400"><i class="fas fa-info-circle mr-1"></i> Формат: 1920×1080</div>
+                                        <div class="text-xs text-green-400"><i class="fas fa-palette mr-1"></i> CTR: Высокий</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Example 2 -->
+                            <div class="case-card overflow-hidden">
+                                <div class="case-header bg-gradient-to-r from-indigo-800 to-blue-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">Образовательный контент</h4>
+                                    <span class="text-xs bg-indigo-700 px-2 py-1 rounded">GPT-4o</span>
+                                </div>
+                                <div class="p-3">
+                                    <div class="image-placeholder h-36 rounded-md">
+                                        <i class="fas fa-graduation-cap text-2xl mb-1 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Обложка "10 трюков в Excel"</p>
+                                        <p class="text-xs text-gray-500">(Профессиональный образовательный стиль)</p>
+                                    </div>
+                                    <div class="mt-3 flex justify-between">
+                                        <div class="text-xs text-gray-400"><i class="fas fa-info-circle mr-1"></i> Формат: 1920×1080</div>
+                                        <div class="text-xs text-blue-400"><i class="fas fa-chalkboard-teacher mr-1"></i> Стиль: Деловой</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Example 3 -->
+                            <div class="case-card overflow-hidden col-span-2">
+                                <div class="case-header bg-gradient-to-r from-purple-800 to-pink-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">A/B-тест обложек</h4>
+                                    <span class="text-xs bg-purple-700 px-2 py-1 rounded">Variations</span>
+                                </div>
+                                <div class="p-3">
+                                    <div class="grid grid-cols-4 gap-2">
+                                        <div class="image-placeholder h-24 rounded-md">
+                                            <p class="text-xs text-gray-400">Вариант A</p>
+                                        </div>
+                                        <div class="image-placeholder h-24 rounded-md">
+                                            <p class="text-xs text-gray-400">Вариант B</p>
+                                        </div>
+                                        <div class="image-placeholder h-24 rounded-md">
+                                            <p class="text-xs text-gray-400">Вариант C</p>
+                                        </div>
+                                        <div class="image-placeholder h-24 rounded-md">
+                                            <p class="text-xs text-gray-400">Вариант D</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-center text-gray-400 mt-2">
+                                        Тестирование нескольких вариантов обложки для одного видео
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Marketplace Cards Tab -->
+            <div id="marketplace" class="tab-content">
+                <div class="grid grid-cols-5 gap-4 h-full">
+                    <!-- Left Panel - Description -->
+                    <div class="col-span-2">
+                        <div class="case-card p-4 h-full flex flex-col">
+                            <h3 class="text-2xl font-semibold text-yellow-300 mb-3">
+                                <i class="fas fa-shopping-cart mr-2"></i> Карточки товаров
+                            </h3>
+                            
+                            <div class="space-y-4 flex-grow">
+                                <p class="text-gray-300 text-sm">
+                                    Создание привлекательных карточек товаров для маркетплейсов с фокусом на ключевые особенности и преимущества продукта.
+                                </p>
+                                
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Идеальные модели:</h4>
+                                    <div class="flex flex-wrap">
+                                        <span class="feature-tag text-green-300 border border-green-800 mr-2">ControlNet</span>
+                                        <span class="feature-tag text-purple-300 border border-purple-800">DreamBooth</span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Эффективные промпты:</h4>
+                                    <div class="prompt-text text-yellow-300">
+                                        Создай профессиональную фотографию для маркетплейса: носки с прорезиненной подошвой на белом фоне, детализированное изображение фактуры, хорошо видны все особенности продукта, студийное освещение, 4K
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Преимущества:</h4>
+                                    <ul class="text-sm text-gray-300 list-disc list-inside">
+                                        <li>Снижение затрат на профессиональную фотосъемку</li>
+                                        <li>Визуализация товаров до их физического производства</li>
+                                        <li>Возможность создания многочисленных вариаций</li>
+                                        <li>Быстрое обновление визуального контента</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="text-xs text-gray-400 mt-3">
+                                <i class="fas fa-info-circle mr-1 text-yellow-400"></i>
+                                Оптимально использовать белый фон и стандартизированное освещение
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Panel - Examples -->
+                    <div class="col-span-3">
+                        <div class="grid grid-cols-3 gap-4 h-full">
+                            <!-- Example 1 -->
+                            <div class="case-card overflow-hidden">
+                                <div class="case-header bg-gradient-to-r from-yellow-800 to-orange-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">Товар крупным планом</h4>
+                                    <span class="text-xs bg-yellow-700 px-2 py-1 rounded">ControlNet</span>
+                                </div>
+                                <div class="p-3">
+                                    <div class="image-placeholder h-40 rounded-md">
+                                        <i class="fas fa-socks text-2xl mb-1 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Носки с подошвой</p>
+                                        <p class="text-xs text-gray-500">(Детальное изображение продукта)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Example 2 -->
+                            <div class="case-card overflow-hidden">
+                                <div class="case-header bg-gradient-to-r from-green-800 to-teal-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">Продукт в использовании</h4>
+                                    <span class="text-xs bg-green-700 px-2 py-1 rounded">DreamBooth</span>
+                                </div>
+                                <div class="p-3">
+                                    <div class="image-placeholder h-40 rounded-md">
+                                        <i class="fas fa-coffee text-2xl mb-1 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Термокружка в руке</p>
+                                        <p class="text-xs text-gray-500">(Продукт в контексте использования)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Example 3 -->
+                            <div class="case-card overflow-hidden">
+                                <div class="case-header bg-gradient-to-r from-purple-800 to-indigo-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">Товар с аксессуарами</h4>
+                                    <span class="text-xs bg-purple-700 px-2 py-1 rounded">Stable Diffusion</span>
+                                </div>
+                                <div class="p-3">
+                                    <div class="image-placeholder h-40 rounded-md">
+                                        <i class="fas fa-headphones text-2xl mb-1 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Наушники с аксессуарами</p>
+                                        <p class="text-xs text-gray-500">(Комплект товаров в композиции)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Example 4 - Process Flow -->
+                            <div class="case-card overflow-hidden col-span-3">
+                                <div class="case-header bg-gradient-to-r from-blue-800 to-indigo-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">Процесс создания карточки товара</h4>
+                                </div>
+                                <div class="p-3">
+                                    <div class="flex justify-between items-center">
+                                        <div class="image-placeholder w-1/5 h-32 rounded-md">
+                                            <p class="text-xs text-gray-400">1. Исходное фото</p>
+                                        </div>
+                                        <i class="fas fa-arrow-right text-gray-400"></i>
+                                        <div class="image-placeholder w-1/5 h-32 rounded-md">
+                                            <p class="text-xs text-gray-400">2. Удаление фона</p>
+                                        </div>
+                                        <i class="fas fa-arrow-right text-gray-400"></i>
+                                        <div class="image-placeholder w-1/5 h-32 rounded-md">
+                                            <p class="text-xs text-gray-400">3. ИИ-улучшение</p>
+                                        </div>
+                                        <i class="fas fa-arrow-right text-gray-400"></i>
+                                        <div class="image-placeholder w-1/5 h-32 rounded-md">
+                                            <p class="text-xs text-gray-400">4. Готовая карточка</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-center text-gray-400 mt-3">
+                                        Тестирование нескольких вариантов обложки для одного видео
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Websites Tab -->
+            <div id="websites" class="tab-content">
+                <div class="grid grid-cols-5 gap-4 h-full">
+                    <!-- Left Panel - Description -->
+                    <div class="col-span-2">
+                        <div class="case-card p-4 h-full flex flex-col">
+                            <h3 class="text-2xl font-semibold text-green-300 mb-3">
+                                <i class="fas fa-laptop-code mr-2"></i> Макеты сайтов
+                            </h3>
+                            <div class="space-y-4 flex-grow">
+                                <p class="text-gray-300 text-sm">
+                                    Генерация макетов веб-сайтов, целевых страниц и отдельных UI-элементов для ускорения процесса дизайна и прототипирования.
+                                </p>
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Идеальные модели:</h4>
+                                    <div class="flex flex-wrap">
+                                        <span class="feature-tag text-green-300 border border-green-800 mr-2">ControlNet</span>
+                                        <span class="feature-tag text-indigo-300 border border-indigo-800">GPT-4o</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Эффективные промпты:</h4>
+                                    <div class="prompt-text text-green-300">
+                                        Создай макет главной страницы для сайта кофейни. Стиль: современный минимализм. Цветовая палитра: теплые кофейные тона, акцентный оранжевый. Секции: шапка с лого, баннер, меню, отзывы, подвал.
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Преимущества:</h4>
+                                    <ul class="text-sm text-gray-300 list-disc list-inside">
+                                        <li>Быстрое прототипирование и визуализация идей</li>
+                                        <li>Создание множества вариантов дизайна для выбора</li>
+                                        <li>Генерация UI-китов и отдельных элементов</li>
+                                        <li>Сокращение времени на разработку первоначальных макетов</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-400 mt-3">
+                                <i class="fas fa-info-circle mr-1 text-green-400"></i>
+                                ControlNet отлично подходит для генерации по скетчам или референсам.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right Panel - Examples -->
+                    <div class="col-span-3">
+                        <div class="grid grid-rows-2 gap-4 h-full">
+                            <div class="case-card overflow-hidden">
+                                <div class="case-header bg-gradient-to-r from-green-800 to-teal-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">Макет главной страницы</h4>
+                                    <span class="text-xs bg-green-700 px-2 py-1 rounded">GPT-4o</span>
+                                </div>
+                                <div class="p-3">
+                                    <div class="image-placeholder h-48 rounded-md">
+                                        <i class="fas fa-desktop text-2xl mb-1 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Лендинг для кофейни</p>
+                                        <p class="text-xs text-gray-500">(Современный минималистичный дизайн)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="case-card overflow-hidden">
+                                <div class="case-header bg-gradient-to-r from-blue-800 to-indigo-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">UI элементы (кнопки, карточки)</h4>
+                                    <span class="text-xs bg-blue-700 px-2 py-1 rounded">ControlNet</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 p-3">
+                                    <div class="image-placeholder h-32 rounded-md">
+                                        <i class="fas fa-toggle-on text-2xl mb-1 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Набор кнопок</p>
+                                    </div>
+                                    <div class="image-placeholder h-32 rounded-md">
+                                        <i class="fas fa-th-large text-2xl mb-1 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Дизайн карточек</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interior Tab -->
+            <div id="interior" class="tab-content">
+                <div class="grid grid-cols-5 gap-4 h-full">
+                    <!-- Left Panel - Description -->
+                    <div class="col-span-2">
+                        <div class="case-card p-4 h-full flex flex-col">
+                            <h3 class="text-2xl font-semibold text-purple-300 mb-3">
+                                <i class="fas fa-couch mr-2"></i> Интерьер
+                            </h3>
+                            <div class="space-y-4 flex-grow">
+                                <p class="text-gray-300 text-sm">
+                                    Визуализация дизайна интерьеров, расстановки мебели, различных стилей комнат и элементов декора.
+                                </p>
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Идеальные модели:</h4>
+                                    <div class="flex flex-wrap">
+                                        <span class="feature-tag text-green-300 border border-green-800 mr-2">ControlNet</span>
+                                        <span class="feature-tag text-blue-300 border border-blue-800">Stable Diffusion</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Эффективные промпты:</h4>
+                                    <div class="prompt-text text-purple-300">
+                                        Дизайн интерьера гостиной в скандинавском стиле, светлые тона, деревянная мебель, панорамное окно с видом на лес, уютный диван, камин. Фотореалистичный рендер, дневное освещение.
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">Преимущества:</h4>
+                                    <ul class="text-sm text-gray-300 list-disc list-inside">
+                                        <li>Быстрая визуализация концепций дизайна</li>
+                                        <li>Эксперименты с различными стилями и мебелью</li>
+                                        <li>Создание виртуальных туров и презентаций</li>
+                                        <li>Экономия на услугах 3D-визуализаторов на начальном этапе</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-400 mt-3">
+                                <i class="fas fa-info-circle mr-1 text-purple-400"></i>
+                                Используйте ControlNet (например, с картами глубины) для точного контроля перспективы.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right Panel - Examples -->
+                    <div class="col-span-3">
+                        <div class="grid grid-cols-2 gap-4 h-full">
+                            <div class="case-card overflow-hidden">
+                                <div class="case-header bg-gradient-to-r from-purple-800 to-pink-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">Гостиная в скандинавском стиле</h4>
+                                    <span class="text-xs bg-purple-700 px-2 py-1 rounded">Stable Diffusion</span>
+                                </div>
+                                <div class="p-3">
+                                    <div class="image-placeholder h-40 rounded-md">
+                                        <i class="fas fa-couch text-2xl mb-1 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Светлая гостиная</p>
+                                        <p class="text-xs text-gray-500">(Фотореалистичный рендер)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="case-card overflow-hidden">
+                                <div class="case-header bg-gradient-to-r from-green-800 to-teal-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">Кухня в стиле лофт</h4>
+                                    <span class="text-xs bg-green-700 px-2 py-1 rounded">ControlNet</span>
+                                </div>
+                                <div class="p-3">
+                                    <div class="image-placeholder h-40 rounded-md">
+                                        <i class="fas fa-utensils text-2xl mb-1 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Кухня с кирпичной стеной</p>
+                                        <p class="text-xs text-gray-500">(Точная композиция по скетчу)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="case-card overflow-hidden col-span-2">
+                                <div class="case-header bg-gradient-to-r from-indigo-800 to-blue-900 flex justify-between items-center">
+                                    <h4 class="text-white font-semibold">Вариации цветовых решений</h4>
+                                    <span class="text-xs bg-indigo-700 px-2 py-1 rounded">Variations</span>
+                                </div>
+                                <div class="p-3">
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <div class="image-placeholder h-28 rounded-md">
+                                            <p class="text-xs text-gray-400">Бежевая гамма</p>
+                                        </div>
+                                        <div class="image-placeholder h-28 rounded-md">
+                                            <p class="text-xs text-gray-400">Синие акценты</p>
+                                        </div>
+                                        <div class="image-placeholder h-28 rounded-md">
+                                            <p class="text-xs text-gray-400">Зеленые тона</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-center text-gray-400 mt-2">
+                                        Эксперименты с цветом для одной планировки
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="slide-number">8</div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Get all elements with class="tab-content" and hide them
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Get all elements with class="tab-button" and remove the "active" class
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).classList.add('active');
+            // Find the button that controls this tab and add active class
+            // This assumes the onclick attribute is set like onclick="showTab('tabName')"
+            // And that we want to make the button itself active
+            event.currentTarget.classList.add('active');
+        }
+
+        // Optional: Ensure the first tab is active on page load if not already handled by HTML
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     // Check if any tab is already active, if not, activate the first one.
+        //     const firstTabButton = document.querySelector('.tab-button');
+        //     if (firstTabButton && !document.querySelector('.tab-button.active')) {
+        //         firstTabButton.click(); // Simulate a click to activate it
+        //     }
+        // });
+    </script>
+</body>
+</html>

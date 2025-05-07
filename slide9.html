@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Демо Telegram-бота</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            height: 100%;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .telegram-message {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .telegram-message.user {
+            background-color: #2b5278;
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        .telegram-message.bot {
+            background-color: #182533;
+            color: white;
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+        }
+        .telegram-header {
+            background: linear-gradient(to right, #0088cc, #0099e6);
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            padding: 12px 16px;
+        }
+        .image-placeholder {
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%);
+            background-size: 20px 20px;
+            border: 2px dashed rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .price-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .price-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .price-card.popular {
+            border: 2px solid #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-10 flex flex-col">
+        <div class="grid-pattern"></div>
+        
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-4xl font-bold">Демо <span class="gradient-text">Telegram-бота</span></h2>
+            <div class="h-1 w-36 bg-gradient-to-r from-blue-400 to-purple-500 mt-3 rounded-full"></div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-8 flex-grow">
+            <!-- Left Column - Bot Interface -->
+            <div class="space-y-6">
+                <div class="card overflow-hidden">
+                    <div class="telegram-header flex items-center">
+                        <i class="fab fa-telegram text-white text-2xl mr-3"></i>
+                        <div>
+                            <h3 class="text-white font-bold">AI Image Generator Bot</h3>
+                            <p class="text-xs text-blue-100">Онлайн</p>
+                        </div>
+                        <div class="ml-auto flex space-x-3">
+                            <i class="fas fa-search text-white"></i>
+                            <i class="fas fa-ellipsis-v text-white"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-slate-900 h-96 overflow-y-auto">
+                        <div class="telegram-message bot">
+                            👋 Привет! Я бот для генерации изображений с ИИ. Выберите модель и опишите, что вы хотите создать.
+                        </div>
+                        
+                        <div class="telegram-message user">
+                            Хочу создать обложку для YouTube о путешествиях
+                        </div>
+                        
+                        <div class="telegram-message bot">
+                            Отлично! Выберите модель для генерации:
+                            <div class="grid grid-cols-2 gap-2 mt-3">
+                                <div class="bg-blue-700 text-center py-2 px-3 rounded-md text-sm">
+                                    <i class="fas fa-bolt mr-1"></i> Stable Diffusion
+                                </div>
+                                <div class="bg-indigo-700 text-center py-2 px-3 rounded-md text-sm">
+                                    <i class="fas fa-robot mr-1"></i> GPT-4o
+                                </div>
+                                <div class="bg-purple-700 text-center py-2 px-3 rounded-md text-sm">
+                                    <i class="fas fa-cube mr-1"></i> DreamBooth
+                                </div>
+                                <div class="bg-teal-700 text-center py-2 px-3 rounded-md text-sm">
+                                    <i class="fas fa-star mr-1"></i> Gemini
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="telegram-message user">
+                            GPT-4o
+                        </div>
+                        
+                        <div class="telegram-message bot">
+                            Теперь опишите детально изображение, которое хотите получить. Чем подробнее - тем лучше.
+                        </div>
+                        
+                        <div class="telegram-message user">
+                            Создай YouTube-обложку 1920x1080 для видео о путешествии в Исландию. В центре девушка с рюкзаком на фоне водопада и зеленых гор. Яркие контрастные цвета, профессиональное освещение, реалистичный стиль.
+                        </div>
+                        
+                        <div class="telegram-message bot">
+                            Начинаю генерацию изображения по вашему запросу...
+                        </div>
+                        
+                        <div class="telegram-message bot">
+                            <div class="image-placeholder w-full h-40 rounded-md mb-2">
+                                <i class="fas fa-image text-2xl mb-2 text-gray-400"></i>
+                                <p class="text-xs text-gray-400">Сгенерированная обложка YouTube</p>
+                            </div>
+                            Изображение готово! Вы можете:
+                            <div class="grid grid-cols-2 gap-2 mt-3">
+                                <div class="bg-green-700 text-center py-1 px-2 rounded-md text-xs">
+                                    <i class="fas fa-download mr-1"></i> Скачать
+                                </div>
+                                <div class="bg-blue-700 text-center py-1 px-2 rounded-md text-xs">
+                                    <i class="fas fa-sync-alt mr-1"></i> Регенерировать
+                                </div>
+                                <div class="bg-purple-700 text-center py-1 px-2 rounded-md text-xs">
+                                    <i class="fas fa-magic mr-1"></i> Upscale
+                                </div>
+                                <div class="bg-yellow-700 text-center py-1 px-2 rounded-md text-xs">
+                                    <i class="fas fa-edit mr-1"></i> Редактировать
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column - Pricing and Features -->
+            <div class="space-y-6">
+                <!-- Features Section -->
+                <div class="card p-5">
+                    <h3 class="text-xl font-semibold text-blue-300 flex items-center mb-4">
+                        <i class="fas fa-rocket mr-3"></i> Возможности бота
+                    </h3>
+                    
+                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-300">
+                        <div class="flex items-start">
+                            <div class="rounded-full bg-blue-900 w-8 h-8 flex items-center justify-center mr-2 flex-shrink-0">
+                                <i class="fas fa-paint-brush text-blue-300"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium">Множество моделей</h4>
+                                <p class="text-xs">SD, GPT-4o, DreamBooth и Gemini</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="rounded-full bg-purple-900 w-8 h-8 flex items-center justify-center mr-2 flex-shrink-0">
+                                <i class="fas fa-expand-arrows-alt text-purple-300"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium">Upscaling</h4>
+                                <p class="text-xs">Увеличение до 4K разрешения</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="rounded-full bg-green-900 w-8 h-8 flex items-center justify-center mr-2 flex-shrink-0">
+                                <i class="fas fa-credit-card text-green-300"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium">Оплата картами РФ</h4>
+                                <p class="text-xs">Поддержка всех российских банков</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="rounded-full bg-yellow-900 w-8 h-8 flex items-center justify-center mr-2 flex-shrink-0">
+                                <i class="fas fa-bolt text-yellow-300"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium">Быстрая генерация</h4>
+                                <p class="text-xs">Результат за 10-15 секунд</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pricing Section -->
+                <div class="card p-5">
+                    <h3 class="text-xl font-semibold text-blue-300 flex items-center mb-4">
+                        <i class="fas fa-tag mr-3"></i> Пакеты и цены
+                    </h3>
+                    
+                    <div class="grid grid-cols-3 gap-3">
+                        <!-- Starter Pack -->
+                        <div class="price-card bg-slate-800 rounded-lg p-3 text-center">
+                            <h4 class="text-white font-semibold">Тестовый</h4>
+                            <div class="text-2xl font-bold text-blue-300 my-2">50 ₽</div>
+                            <div class="bg-blue-900 bg-opacity-30 py-1 px-2 rounded text-blue-300 text-sm mb-3">
+                                10 изображений
+                            </div>
+                            <ul class="text-xs text-gray-300 space-y-1 mb-3">
+                                <li>✓ Базовые модели</li>
+                                <li>✓ Стандартное качество</li>
+                                <li>✓ Без Upscaling</li>
+                            </ul>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white text-xs py-1 px-3 rounded-full transition">
+                                Выбрать
+                            </button>
+                        </div>
+                        
+                        <!-- Standard Pack -->
+                        <div class="price-card popular bg-slate-800 rounded-lg p-3 text-center relative overflow-hidden">
+                            <div class="absolute top-0 right-0">
+                                <div class="bg-blue-500 text-white text-xs transform rotate-45 px-5 py-1 translate-x-5 -translate-y-2">
+                                    Популярный
+                                </div>
+                            </div>
+                            <h4 class="text-white font-semibold">Стандартный</h4>
+                            <div class="text-2xl font-bold text-blue-300 my-2">400 ₽</div>
+                            <div class="bg-blue-900 bg-opacity-30 py-1 px-2 rounded text-blue-300 text-sm mb-3">
+                                100 изображений
+                            </div>
+                            <ul class="text-xs text-gray-300 space-y-1 mb-3">
+                                <li>✓ Все модели</li>
+                                <li>✓ Высокое качество</li>
+                                <li>✓ Базовый Upscaling</li>
+                            </ul>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white text-xs py-1 px-3 rounded-full transition">
+                                Выбрать
+                            </button>
+                        </div>
+                        
+                        <!-- Premium Pack -->
+                        <div class="price-card bg-slate-800 rounded-lg p-3 text-center">
+                            <h4 class="text-white font-semibold">Премиум</h4>
+                            <div class="text-2xl font-bold text-blue-300 my-2">1500 ₽</div>
+                            <div class="bg-blue-900 bg-opacity-30 py-1 px-2 rounded text-blue-300 text-sm mb-3">
+                                500 изображений
+                            </div>
+                            <ul class="text-xs text-gray-300 space-y-1 mb-3">
+                                <li>✓ Все модели</li>
+                                <li>✓ Максимальное качество</li>
+                                <li>✓ Продвинутый Upscaling</li>
+                            </ul>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white text-xs py-1 px-3 rounded-full transition">
+                                Выбрать
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment Section -->
+                <div class="card p-4">
+                    <h3 class="text-lg font-semibold text-blue-300 flex items-center mb-3">
+                        <i class="fas fa-wallet mr-2"></i> Процесс оплаты
+                    </h3>
+                    
+                    <div class="flex space-x-4 text-center">
+                        <div class="flex-1">
+                            <div class="mx-auto rounded-full w-10 h-10 bg-indigo-900 flex items-center justify-center mb-2">
+                                <i class="fas fa-shopping-cart text-indigo-300"></i>
+                            </div>
+                            <p class="text-xs text-gray-300">Выбор пакета</p>
+                        </div>
+                        <div class="flex items-center text-gray-500">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="mx-auto rounded-full w-10 h-10 bg-indigo-900 flex items-center justify-center mb-2">
+                                <i class="fas fa-credit-card text-indigo-300"></i>
+                            </div>
+                            <p class="text-xs text-gray-300">Оплата картой</p>
+                        </div>
+                        <div class="flex items-center text-gray-500">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="mx-auto rounded-full w-10 h-10 bg-indigo-900 flex items-center justify-center mb-2">
+                                <i class="fas fa-check-circle text-indigo-300"></i>
+                            </div>
+                            <p class="text-xs text-gray-300">Мгновенный доступ</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-center mt-4 space-x-3">
+                        <img src="https://via.placeholder.com/40x25?text=Visa" alt="Visa" class="rounded-md">
+                        <img src="https://via.placeholder.com/40x25?text=MC" alt="MasterCard" class="rounded-md">
+                        <img src="https://via.placeholder.com/40x25?text=Mir" alt="Mir" class="rounded-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-number">9</div>
+    </div>
+</body>
+</html>

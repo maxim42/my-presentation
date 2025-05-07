@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заключение и контакты</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            height: 100%;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .key-point {
+            position: relative;
+            padding-left: 32px;
+        }
+        .key-point:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background-color: rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .key-point:after {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            width: 4px;
+            height: 4px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+        }
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(124, 58, 237, 0.2));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        .qr-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%);
+            background-size: 20px 20px;
+            border: 2px dashed rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .question-bubble {
+            position: relative;
+            background-color: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 15px;
+            border-radius: 20px;
+            border-bottom-left-radius: 5px;
+        }
+        .question-bubble:before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: rgba(59, 130, 246, 0.3) transparent transparent;
+        }
+        .question-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 21px;
+            border-width: 9px 9px 0;
+            border-style: solid;
+            border-color: rgba(30, 41, 59, 0.7) transparent transparent;
+        }
+        .floating-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -2;
+        }
+        .dot {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-10 flex flex-col">
+        <div class="grid-pattern"></div>
+        <div class="floating-dots" id="dots"></div>
+        
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-4xl font-bold">Выводы и <span class="gradient-text">контакты</span></h2>
+            <div class="h-1 w-32 bg-gradient-to-r from-blue-400 to-purple-500 mt-3 rounded-full"></div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-8 flex-grow">
+            <!-- Left Column - Key Points -->
+            <div class="space-y-6">
+                <div class="card p-6">
+                    <h3 class="text-2xl font-semibold text-blue-300 mb-5">
+                        <i class="fas fa-lightbulb mr-3"></i> Ключевые выводы
+                    </h3>
+                    
+                    <div class="space-y-5">
+                        <div class="key-point">
+                            <h4 class="text-lg font-semibold text-white">Промпты — основа высококачественных результатов</h4>
+                            <p class="text-gray-300 text-sm">Детализация, структура и отрицательные промпты значительно улучшают генерацию</p>
+                        </div>
+                        
+                        <div class="key-point">
+                            <h4 class="text-lg font-semibold text-white">Выбор подходящей модели</h4>
+                            <p class="text-gray-300 text-sm">Каждая модель имеет оптимальные сценарии использования и специализацию</p>
+                        </div>
+                        
+                        <div class="key-point">
+                            <h4 class="text-lg font-semibold text-white">Постобработка критически важна</h4>
+                            <p class="text-gray-300 text-sm">Upscaling и создание вариаций — неотъемлемая часть рабочего процесса</p>
+                        </div>
+                        
+                        <div class="key-point">
+                            <h4 class="text-lg font-semibold text-white">Автоматизация через API</h4>
+                            <p class="text-gray-300 text-sm">Интеграция в бизнес-процессы позволяет масштабировать использование технологии</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questions Section -->
+                <div class="card p-6">
+                    <h3 class="text-2xl font-semibold text-blue-300 mb-4">
+                        <i class="fas fa-question-circle mr-3"></i> Вопросы?
+                    </h3>
+                    
+                    <div class="flex">
+                        <div class="w-3/5">
+                            <div class="question-bubble mb-4">
+                                <p class="text-white italic">"Какие навыки нужны для эффективной работы с ИИ-генераторами?"</p>
+                            </div>
+                            
+                            <div class="question-bubble">
+                                <p class="text-white italic">"Какая модель лучше подойдет для создания дизайна упаковки?"</p>
+                            </div>
+                            
+                            <p class="text-sm text-gray-400 mt-6">
+                                <i class="fas fa-hand-point-up text-blue-400"></i>
+                                Задавайте вопросы любой сложности о генерации изображений
+                            </p>
+                        </div>
+                        
+                        <div class="w-2/5 flex items-center justify-center">
+                            <div class="image-placeholder h-40 w-40 rounded-lg">
+                                <i class="fas fa-comments text-3xl mb-2 text-gray-400"></i>
+                                <p class="text-xs text-gray-400 text-center">Иллюстрация<br>сессии вопросов</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column - Contact Information -->
+            <div class="space-y-6">
+                <div class="card p-6">
+                    <h3 class="text-2xl font-semibold text-blue-300 mb-5">
+                        <i class="fas fa-id-card mr-3"></i> Контактная информация
+                    </h3>
+                    
+                    <div class="flex items-center mb-6">
+                        <div class="image-placeholder rounded-full w-24 h-24">
+                            <i class="fas fa-user text-2xl text-gray-400"></i>
+                        </div>
+                        <div class="ml-5">
+                            <h4 class="text-xl font-semibold text-white">Ваше имя</h4>
+                            <p class="text-gray-300">Эксперт по ИИ-генерации изображений</p>
+                            <p class="text-blue-400 mt-2">ai-expert@example.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="flex items-center">
+                            <div class="contact-icon mr-3">
+                                <i class="fab fa-telegram-plane text-lg text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-white font-semibold">Telegram бот</h5>
+                                <p class="text-sm text-blue-300">@AI_Images_Generator_Bot</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="contact-icon mr-3">
+                                <i class="fas fa-globe text-lg text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-white font-semibold">Веб-сайт</h5>
+                                <p class="text-sm text-blue-300">aiimages-generator.ru</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="contact-icon mr-3">
+                                <i class="fab fa-youtube text-lg text-red-400"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-white font-semibold">YouTube канал</h5>
+                                <p class="text-sm text-blue-300">AI Image Tutorials</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="contact-icon mr-3">
+                                <i class="fab fa-telegram text-lg text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-white font-semibold">Telegram канал</h5>
+                                <p class="text-sm text-blue-300">@AI_Images_News</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- QR Codes -->
+                <div class="card p-6">
+                    <h3 class="text-lg font-semibold text-blue-300 mb-4">
+                        <i class="fas fa-qrcode mr-2"></i> Быстрое подключение
+                    </h3>
+                    
+                    <div class="flex justify-around">
+                        <div class="text-center">
+                            <div class="qr-placeholder mx-auto">
+                                <i class="fab fa-telegram text-3xl text-gray-400"></i>
+                                <p class="text-xs text-gray-400 mt-2">QR Telegram бота</p>
+                            </div>
+                            <p class="text-sm text-gray-300 mt-2">Сканируйте для доступа к боту</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="qr-placeholder mx-auto">
+                                <i class="fas fa-globe text-3xl text-gray-400"></i>
+                                <p class="text-xs text-gray-400 mt-2">QR веб-сайта</p>
+                            </div>
+                            <p class="text-sm text-gray-300 mt-2">Сканируйте для доступа к документации</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="mt-auto pt-5 text-center">
+            <p class="text-gray-400">
+                <i class="fas fa-heart text-red-400 mr-1"></i> 
+                Спасибо за внимание! Используйте ИИ-генераторы для улучшения ваших проектов
+            </p>
+        </div>
+        
+        <div class="slide-number">11</div>
+    </div>
+
+    <script>
+        // Создаем анимированные точки на фоне
+        document.addEventListener('DOMContentLoaded', function() {
+            const dotsContainer = document.getElementById('dots');
+            for (let i = 0; i < 30; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                
+                const size = Math.random() * 10 + 3;
+                const posX = Math.random() * 1280;
+                const posY = Math.random() * 720;
+                const opacity = Math.random() * 0.15 + 0.05;
+                
+                dot.style.width = `${size}px`;
+                dot.style.height = `${size}px`;
+                dot.style.left = `${posX}px`;
+                dot.style.top = `${posY}px`;
+                dot.style.opacity = opacity;
+                
+                dotsContainer.appendChild(dot);
+            }
+        });
+    </script>
+</body>
+</html>

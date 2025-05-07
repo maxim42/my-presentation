@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upscaling и Variations</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            height: 100%;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .tech-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .image-placeholder {
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%);
+            background-size: 20px 20px;
+            border: 2px dashed rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .image-arrow {
+            font-size: 24px;
+            color: rgba(148, 163, 184, 0.8);
+            margin: 0 15px;
+        }
+        .resolution-label {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            padding: 3px 8px;
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 4px;
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-10 flex flex-col">
+        <div class="grid-pattern"></div>
+        
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-4xl font-bold"><span class="gradient-text">Upscaling</span> и <span class="gradient-text">Variations</span></h2>
+            <div class="h-1 w-48 bg-gradient-to-r from-blue-400 to-purple-500 mt-3 rounded-full"></div>
+            <p class="text-gray-300 mt-2">Улучшение качества и создание вариаций изображений</p>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-8 flex-grow">
+            <!-- Left Column - Upscaling -->
+            <div class="space-y-6">
+                <div class="card p-5">
+                    <h3 class="text-2xl font-semibold text-blue-300 flex items-center mb-3">
+                        <i class="fas fa-expand-alt mr-3"></i> Upscaling
+                    </h3>
+                    
+                    <p class="text-gray-300 text-sm mb-4">
+                        Технологии увеличения разрешения и улучшения детализации изображений с помощью нейросетей
+                    </p>
+                    
+                    <div class="flex flex-wrap mb-4">
+                        <span class="tech-badge text-blue-300 border-blue-500">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i> GFPGAN
+                        </span>
+                        <span class="tech-badge text-green-300 border-green-500">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i> ESRGAN
+                        </span>
+                        <span class="tech-badge text-purple-300 border-purple-500">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i> Real-ESRGAN
+                        </span>
+                        <span class="tech-badge text-red-300 border-red-500">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i> Topaz Gigapixel AI
+                        </span>
+                    </div>
+                    
+                    <div class="bg-gray-800 bg-opacity-70 p-3 rounded-lg mb-3">
+                        <h4 class="font-semibold text-white mb-2">Преимущества Upscaling:</h4>
+                        <ul class="text-gray-300 text-sm space-y-1">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-400 mr-2 mt-0.5"></i>
+                                <span>Увеличение разрешения до 4х без потери качества</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-400 mr-2 mt-0.5"></i>
+                                <span>Восстановление деталей и текстур</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-400 mr-2 mt-0.5"></i>
+                                <span>Устранение артефактов генерации</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-400 mr-2 mt-0.5"></i>
+                                <span>Подготовка к печати и большим дисплеям</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-sm text-gray-400">
+                        <i class="fas fa-lightbulb text-yellow-400 mr-1"></i>
+                        Например: увеличение из 512×512 → 2048×2048 пикселей
+                    </div>
+                </div>
+                
+                <!-- Upscaling Examples -->
+                <div class="relative">
+                    <div class="flex items-center justify-around">
+                        <div class="image-placeholder w-2/5 h-44 rounded-lg relative">
+                            <i class="fas fa-image text-3xl mb-2 text-gray-400"></i>
+                            <p class="text-sm text-gray-400">Изображение до</p>
+                            <div class="resolution-label">512×512</div>
+                        </div>
+                        
+                        <div class="image-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        
+                        <div class="image-placeholder w-2/5 h-44 rounded-lg relative">
+                            <i class="fas fa-image text-3xl mb-2 text-gray-400"></i>
+                            <p class="text-sm text-gray-400">После Upscaling</p>
+                            <div class="resolution-label">2048×2048</div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-center text-gray-400 mt-2">
+                        Увеличение разрешения с восстановлением деталей
+                    </p>
+                </div>
+                
+                <!-- Workflow Diagram -->
+                <div>
+                    <h4 class="text-lg font-semibold text-blue-300 mb-2">Процесс Upscaling</h4>
+                    <div class="bg-slate-800 bg-opacity-70 p-4 rounded-lg">
+                        <div class="mermaid" id="upscalingWorkflow">
+                        flowchart LR
+                            A[Генерация] --> B[512×512]
+                            B -->|ESRGAN| C[1024×1024]
+                            C -->|GFPGAN| D[Улучшение деталей]
+                            D -->|Финальная обработка| E[2048×2048]
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column - Variations -->
+            <div class="space-y-6">
+                <div class="card p-5">
+                    <h3 class="text-2xl font-semibold text-purple-300 flex items-center mb-3">
+                        <i class="fas fa-clone mr-3"></i> Variations / Batch
+                    </h3>
+                    
+                    <p class="text-gray-300 text-sm mb-4">
+                        Создание нескольких вариаций изображения на основе одного промпта или начального изображения
+                    </p>
+                    
+                    <div class="bg-gray-800 bg-opacity-70 p-3 rounded-lg mb-4">
+                        <h4 class="font-semibold text-white mb-2">Основные методы:</h4>
+                        <div class="space-y-3">
+                            <div>
+                                <h5 class="text-purple-200 font-medium flex items-center">
+                                    <i class="fas fa-dice mr-2"></i>
+                                    Seed-контроль
+                                </h5>
+                                <p class="text-sm text-gray-300 ml-6">
+                                    Фиксация «зерна» генерации с небольшими вариациями параметров
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <h5 class="text-purple-200 font-medium flex items-center">
+                                    <i class="fas fa-sliders-h mr-2"></i>
+                                    Guidance Scale
+                                </h5>
+                                <p class="text-sm text-gray-300 ml-6">
+                                    Изменение степени соответствия промпту (7.5 - 15.0)
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <h5 class="text-purple-200 font-medium flex items-center">
+                                    <i class="fas fa-random mr-2"></i>
+                                    Batch Processing
+                                </h5>
+                                <p class="text-sm text-gray-300 ml-6">
+                                    Генерация нескольких вариантов одновременно (4-10 изображений)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-sm text-gray-300 p-3 bg-purple-900 bg-opacity-20 rounded-lg">
+                        <h4 class="font-semibold text-white mb-2 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>
+                            Применение:
+                        </h4>
+                        <ul class="text-gray-300 space-y-1 ml-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-angle-right text-purple-300 mr-2"></i>
+                                A/B-тестирование для маркетинговых материалов
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-angle-right text-purple-300 mr-2"></i>
+                                Подбор оптимальных вариантов дизайна
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-angle-right text-purple-300 mr-2"></i>
+                                Создание наборов согласованных изображений
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Variations Examples -->
+                <div class="card p-4">
+                    <h4 class="text-lg font-semibold text-purple-300 mb-3">Примеры вариаций</h4>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="image-placeholder h-28 rounded-lg relative">
+                            <span class="text-xs text-gray-400">Вариант 1</span>
+                            <span class="text-xs text-gray-500 absolute top-1 right-2">seed: 1234</span>
+                        </div>
+                        <div class="image-placeholder h-28 rounded-lg relative">
+                            <span class="text-xs text-gray-400">Вариант 2</span>
+                            <span class="text-xs text-gray-500 absolute top-1 right-2">seed: 1235</span>
+                        </div>
+                        <div class="image-placeholder h-28 rounded-lg relative">
+                            <span class="text-xs text-gray-400">Вариант 3</span>
+                            <span class="text-xs text-gray-500 absolute top-1 right-2">seed: 1236</span>
+                        </div>
+                        <div class="image-placeholder h-28 rounded-lg relative">
+                            <span class="text-xs text-gray-400">Вариант 4</span>
+                            <span class="text-xs text-gray-500 absolute top-1 right-2">guidance: 7.5</span>
+                        </div>
+                        <div class="image-placeholder h-28 rounded-lg relative">
+                            <span class="text-xs text-gray-400">Вариант 5</span>
+                            <span class="text-xs text-gray-500 absolute top-1 right-2">guidance: 10.0</span>
+                        </div>
+                        <div class="image-placeholder h-28 rounded-lg relative">
+                            <span class="text-xs text-gray-400">Вариант 6</span>
+                            <span class="text-xs text-gray-500 absolute top-1 right-2">guidance: 12.5</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-center text-gray-400 mt-2">
+                        Вариации одного промпта с разными параметрами
+                    </p>
+                </div>
+                
+                <!-- Variations Workflow -->
+                <div class="bg-slate-800 bg-opacity-70 p-4 rounded-lg">
+                    <h4 class="text-lg font-semibold text-purple-300 mb-2">Процесс создания вариаций</h4>
+                    <div class="mermaid" id="variationsWorkflow">
+                    flowchart TD
+                        A[Базовый промпт] --> B{Генерация с фиксированным seed}
+                        B --> C1[Вариация 1]
+                        B --> C2[Вариация 2]
+                        B --> C3[Вариация 3]
+                        C1 & C2 & C3 --> D[Выбор лучшего]
+                        D --> E[Финальная обработка]
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-number">7</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'dark',
+                flowchart: {
+                    useMaxWidth: true,
+                    htmlLabels: true,
+                    curve: 'cardinal'
+                },
+                themeVariables: {
+                    primaryColor: '#1e293b',
+                    primaryTextColor: '#f8fafc',
+                    primaryBorderColor: '#3b82f6',
+                    lineColor: '#94a3b8',
+                    secondaryColor: '#334155',
+                    tertiaryColor: '#0f172a'
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продвинутое Prompt-инжиниринг</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            height: 100%;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .highlight-block {
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 4px solid #38bdf8;
+            padding: 10px 15px;
+            border-radius: 0 4px 4px 0;
+        }
+        .example-prompt {
+            font-family: 'Courier New', monospace;
+            background-color: rgba(15, 23, 42, 0.7);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 14px;
+            line-height: 1.4;
+            position: relative;
+        }
+        .code-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+        .image-placeholder {
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%);
+            background-size: 20px 20px;
+            border: 2px dashed rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 16px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-12">
+        <div class="grid-pattern"></div>
+        
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-4xl font-bold"><span class="gradient-text">Продвинутое</span> Prompt-инжиниринг</h2>
+            <div class="h-1 w-32 bg-gradient-to-r from-blue-400 to-purple-500 mt-3 rounded-full"></div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-8 mt-2">
+            <!-- Left Column - Principles -->
+            <div class="space-y-6">
+                <div class="card p-5">
+                    <h3 class="text-2xl font-semibold text-blue-300 flex items-center">
+                        <i class="fas fa-list-check mr-3"></i> Общие принципы
+                    </h3>
+                    
+                    <div class="mt-4 space-y-4">
+                        <div class="highlight-block">
+                            <h4 class="text-lg font-semibold text-white">Контекст и детализация</h4>
+                            <ul class="mt-2 text-gray-300 list-disc list-inside">
+                                <li>Используйте <span class="text-yellow-300">чёткие существительные</span></li>
+                                <li>Добавляйте <span class="text-yellow-300">атмосферу и стилистику</span></li>
+                                <li>Уточняйте <span class="text-yellow-300">ракурс и технику</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="highlight-block">
+                            <h4 class="text-lg font-semibold text-white">Структура промпта</h4>
+                            <ul class="mt-2 text-gray-300 list-disc list-inside">
+                                <li>Деление на <span class="text-yellow-300">логичные пункты</span></li>
+                                <li>Использование <span class="text-yellow-300">списков</span> для сложных задач</li>
+                                <li>Соблюдение <span class="text-yellow-300">приоритетов</span> в описании</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="promptStructureCard" class="card p-5">
+                    <h3 class="text-xl font-semibold text-blue-300 mb-3">Структура хорошего промпта</h3>
+                    <div class="bg-slate-900 bg-opacity-70 p-4 rounded-lg">
+                        <div class="mermaid" id="promptStructureChart" data-mermaid-definition="flowchart TD
+    A[Промпт] --> B(Субъект/Объект)
+    A --> C(Контекст)
+    A --> D(Стиль)
+    A --> E(Технические параметры)
+    
+    B --> B1[&quot;Что изображено?&quot;]
+    C --> C1[&quot;Где? В каком окружении?&quot;]
+    D --> D1[&quot;Какая визуальная эстетика?&quot;]
+    E --> E1[&quot;Разрешение, формат, угол камеры&quot;]">
+                        flowchart TD
+                            A[Промпт] --> B(Субъект/Объект)
+                            A --> C(Контекст)
+                            A --> D(Стиль)
+                            A --> E(Технические параметры)
+                            
+                            B --> B1["Что изображено?"]
+                            C --> C1["Где? В каком окружении?"]
+                            D --> D1["Какая визуальная эстетика?"]
+                            E --> E1["Разрешение, формат, угол камеры"]
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column - Examples -->
+            <div class="space-y-6">
+                <div class="card p-5">
+                    <h3 class="text-2xl font-semibold text-blue-300 flex items-center">
+                        <i class="fas fa-code mr-3"></i> Примеры промптов
+                    </h3>
+                    
+                    <div class="mt-4 space-y-6">
+                        <!-- Example 1 -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-gray-300">Простой промпт</h4>
+                                <span class="code-tag bg-red-900 text-red-200">Неэффективно</span>
+                            </div>
+                            <div class="example-prompt text-red-300">
+                                Мужчина на кухне
+                            </div>
+                        </div>
+                        
+                        <!-- Example 2 -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-gray-300">Улучшенный промпт</h4>
+                                <span class="code-tag bg-green-900 text-green-200">Эффективно</span>
+                            </div>
+                            <div class="example-prompt text-green-300">
+                                YouTube-обложка 1920×1080, молодой мужчина в зелёном фартуке на кухне, готовит еду, теплая уютная атмосфера, яркие контрастные цвета, профессиональное освещение, 4K
+                            </div>
+                        </div>
+                        
+                        <!-- Example 3 -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-gray-300">Структурированный промпт</h4>
+                                <span class="code-tag bg-blue-900 text-blue-200">Продвинуто</span>
+                            </div>
+                            <div class="example-prompt text-blue-300">
+                                1. Элемент: молодой мужчина в зелёном фартуке готовит на современной кухне<br>
+                                2. Цветовая палитра: теплая, оранжево-желтые акценты<br>
+                                3. Стиль: реалистичная фотография, мягкое боковое освещение<br>
+                                4. Формат: YouTube-обложка 1920×1080, 4K
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Removed Image Placeholder -->
+
+            </div>
+        </div>
+
+        <!-- New Image Section -->
+        <div class="mt-8 card p-5">
+            <h3 class="text-xl font-semibold text-blue-300 mb-4 text-center">Эволюция промпта: Визуальные примеры</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <img src="images/3.1.png" alt="Неэффективный промпт" class="clickable-image rounded-lg shadow-lg mb-2 w-full h-auto object-contain max-h-60">
+                    <p class="text-sm font-semibold text-red-300 code-tag bg-red-900">Неэффективно</p>
+                </div>
+                <div class="text-center">
+                    <img src="images/3.2.png" alt="Эффективный промпт" class="clickable-image rounded-lg shadow-lg mb-2 w-full h-auto object-contain max-h-60">
+                    <p class="text-sm font-semibold text-green-300 code-tag bg-green-900">Эффективно</p>
+                </div>
+                <div class="text-center">
+                    <img src="images/3.3.png" alt="Продвинутый промпт" class="clickable-image rounded-lg shadow-lg mb-2 w-full h-auto object-contain max-h-60">
+                    <p class="text-sm font-semibold text-blue-300 code-tag bg-blue-900">Продвинуто</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-number">3/11</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Mermaid
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'dark',
+                flowchart: {
+                    useMaxWidth: true,
+                    htmlLabels: true,
+                    curve: 'cardinal'
+                },
+                themeVariables: {
+                    primaryColor: '#1e293b',
+                    primaryTextColor: '#f8fafc',
+                    primaryBorderColor: '#3b82f6',
+                    lineColor: '#94a3b8',
+                    secondaryColor: '#334155',
+                    tertiaryColor: '#0f172a'
+                }
+            });
+
+            // MODAL CODE STARTS HERE
+            const modal = document.getElementById('fullscreenModal');
+            const modalDisplayArea = document.getElementById('modalDisplayArea');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+
+            const clickableImages = document.querySelectorAll('.clickable-image');
+            const promptStructureCard = document.getElementById('promptStructureCard'); 
+            const originalMermaidChart = document.getElementById('promptStructureChart');
+
+            function openModal() {
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    document.body.style.overflow = 'hidden'; 
+                }
+            }
+
+            function closeModal() {
+                if (modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    if (modalDisplayArea) modalDisplayArea.innerHTML = '';
+                    document.body.style.overflow = '';
+                }
+            }
+
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', closeModal);
+            }
+
+            if (modal) {
+                modal.addEventListener('click', function(event) {
+                    if (event.target === modal) { // Click on backdrop
+                        closeModal();
+                    }
+                });
+            }
+
+            clickableImages.forEach(img => {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', function() {
+                    if (modalDisplayArea) {
+                        modalDisplayArea.innerHTML = `<img src="${this.src}" alt="${this.alt}" class="block max-w-full max-h-[80vh] mx-auto my-0 object-contain rounded-md">`;
+                        openModal();
+                    }
+                });
+            });
+
+            if (promptStructureCard && originalMermaidChart) {
+                promptStructureCard.style.cursor = 'pointer';
+                promptStructureCard.addEventListener('click', function() {
+                    const mermaidDefinition = originalMermaidChart.getAttribute('data-mermaid-definition') ? originalMermaidChart.getAttribute('data-mermaid-definition').trim() : null;
+                    if (modalDisplayArea && mermaidDefinition) {
+                        const newMermaidContainerId = 'modalMermaidInstance';
+                        // Added inline style for background, padding, and dimensions for the mermaid container in the modal
+                        modalDisplayArea.innerHTML = `<div id="${newMermaidContainerId}" class="mermaid" style="background-color: #1e293b; padding: 20px; border-radius: 8px; width: 100%; height: auto; max-width: 90vw;">${mermaidDefinition}</div>`;
+                        
+                        const newMermaidDiv = document.getElementById(newMermaidContainerId);
+
+                        if (newMermaidDiv) {
+                             // For Mermaid v9+ (including v11.6.0 used in this project)
+                            if (typeof mermaid !== 'undefined' && mermaid.run) {
+                                mermaid.run({ nodes: [newMermaidDiv] }).catch(e => console.error("Mermaid run error:", e));
+                            } else if (typeof mermaid !== 'undefined' && mermaid.contentLoaded) { // Fallback for older mermaid versions
+                                newMermaidDiv.removeAttribute('data-processed');
+                                mermaid.contentLoaded();
+                            }
+                        }
+                        openModal();
+                    } else {
+                        console.error("Modal display area or mermaid definition not found for prompt structure card.");
+                    }
+                });
+            }
+            // MODAL CODE ENDS HERE
+        });
+    </script>
+
+    <!-- Modal Structure -->
+    <div id="fullscreenModal" class="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center p-4 z-[1000] hidden" aria-modal="true" role="dialog">
+        <div id="modalContent" class="bg-slate-800 p-4 md:p-6 rounded-lg shadow-2xl w-11/12 max-w-4xl max-h-[90vh] overflow-auto relative flex flex-col">
+            <button id="closeModalBtn" aria-label="Close modal" class="absolute top-2 right-2 md:top-3 md:right-3 text-gray-400 hover:text-white text-3xl z-10 leading-none p-1">
+                &times;
+            </button>
+            <div id="modalDisplayArea" class="mt-6 md:mt-8 flex-grow flex justify-center items-center">
+                <!-- Content (image or diagram) will be injected here -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
